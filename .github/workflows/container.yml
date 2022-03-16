@@ -10,7 +10,7 @@ on:
     branches:
       - master
     paths:
-      - 'container/**'
+      - './container/**'
 
 # the execution path directory (should have access to package.json file to run commands)
 
