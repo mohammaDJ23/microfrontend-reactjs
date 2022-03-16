@@ -10,13 +10,13 @@ on:
     branches:
       - master
     paths:
-      - 'packages/container/**'
+      - 'container/**'
 
 # the execution path directory (should have access to package.json file to run commands)
 
 defaults:
   run:
-    working-directory: packages/container
+    working-directory: container
 
 # here's the commands to deploy our app when you pushed your codes to github
 
