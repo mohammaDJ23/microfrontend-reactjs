@@ -12,6 +12,12 @@ on:
     paths:
       - 'container/**'
 
+# the execution path directory (should have access to package.json file to run commands)
+
+defaults:
+  run:
+    working-directory: ./container
+
 # here's the commands to deploy our app when you pushed your codes to github
 
 jobs:
@@ -21,12 +27,6 @@ jobs:
     # choose the virtual machine
 
     runs-on: ubuntu-latest
-
-    # the execution path directory (should have access to package.json file to run commands)
-
-    defaults:
-      run:
-        working-directory: ./container
 
     # steps of your jobs
 
