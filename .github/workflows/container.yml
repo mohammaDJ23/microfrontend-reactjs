@@ -43,6 +43,8 @@ jobs:
       # get access to aws cli
 
       - uses: chrislennon/action-aws-cli@v1.1
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 
       # use the cli to run further commands
 
