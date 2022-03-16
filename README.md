@@ -6,7 +6,7 @@
 
 <br>
 
-#### by default your project will store in the bucket in the aws but if you do a request from client to get files from aws (bucket), instead of reaching to the bucket your request will get through into something called cloudfront. if you change your index.html file or js files bucket will be updated automatlly but your cloudfront does not be updated by every changes in your project (becuase everytime you will do a change into your project webpack will create new js file and then it will put the new file into your html file as scritp file). your could do manually in the aws or adding a step in the yml file. see the step after storing dist file in the aws. in this step we also will update our cloudfront everytime you make a change in your project.
+##### by default your project will store in the bucket in the aws but if you do a request from client to get files from aws (bucket), instead of reaching to the bucket your request will get through into something called cloudfront. if you change your index.html file or js files bucket will be updated automatlly but your cloudfront does not be updated by every changes in your project (becuase everytime you will do a change into your project webpack will create new js file and then it will put the new file into your html file as scritp file). your could do manually in the aws or adding a step in the yml file. see the step after storing dist file in the aws. in this step we also will update our cloudfront everytime you make a change in your project.
 
 <br>
 
