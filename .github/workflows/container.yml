@@ -14,7 +14,7 @@ on:
 
 # the execution path directory (should have access to package.json file to run commands)
 
-default:
+defaults:
   run:
     working-directory: packages/container
 
