@@ -7,6 +7,11 @@ const prodConfig = {
   mode: 'production',
   output: {
     filename: '[name].[contenthash].js',
+
+    // this is the path of your bucket in aws like this:
+    // https://f42309sf90sdf.couldfront.net/container/latest/main.foisdf8972354.js
+
+    publicPath: '/container/latest/',
   },
   plugins: [
     new ModulesFederationPlugin({
