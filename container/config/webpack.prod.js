@@ -10,6 +10,7 @@ const prodConfig = {
 
     // this is the path of your bucket in aws like this:
     // https://f42309sf90sdf.couldfront.net/container/latest/main.foisdf8972354.js
+    // this path '/container/latest/' will define in your aws bucket by yourself
 
     publicPath: '/container/latest/',
   },
