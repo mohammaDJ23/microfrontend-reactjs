@@ -6,7 +6,7 @@ import Signin from './components/signin';
 import Signup from './components/signup';
 
 // to prevent collisions between default generated classname in material ui
-// we customize it
+// we customize it.
 
 // generated classnamme by default are jss1, jss2, jss3
 // and this might cause some collision between different projects
