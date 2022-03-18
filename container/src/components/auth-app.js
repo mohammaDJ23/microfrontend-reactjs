@@ -1,8 +1,8 @@
-import { mount } from 'marketing/MarketingApp';
+import { mount } from 'auth/AuthApp';
 import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default () => {
+export default ({ onSignIn }) => {
   const ref = useRef(null);
   const history = useHistory();
 
@@ -22,10 +22,14 @@ export default () => {
         }
       },
 
-      // in marketing app it does not need to set history location
-      // because we have a route such "/".. but to be sure everything is gonna work
-      // correctly we must pass pathname to marketing project too
-      // because we way decide to change the path.
+      // this callback is for when the user sign up or sign in
+
+      onSignIn,
+
+      // pass the initial path to auth because the initial path in
+      // auth is "/" and we don't any route such a thing and becuase of it
+      // onParentNavigate will not trigger.
+      // we have to tell auth to set inital path from container.
 
       initialPath: history.location.pathname,
     });

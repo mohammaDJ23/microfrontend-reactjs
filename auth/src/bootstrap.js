@@ -4,7 +4,7 @@ import { createMemoryHistory, createBrowserHistory } from 'history';
 
 import App from './app';
 
-function mount(el, { onNavigate, defaultHistory }) {
+function mount(el, { onNavigate, onSignIn, defaultHistory, initialPath }) {
   // defaultHistory is for development propose when this app running without container, to show the current page
   // in the url to the developer, otherwise
   // the developer can't see the current page in url tab
@@ -12,13 +12,17 @@ function mount(el, { onNavigate, defaultHistory }) {
   // if our app is called from parent use createMemoryHistory()
   // the result of the object history are same.
 
-  const history = defaultHistory || createMemoryHistory();
+  const history =
+    defaultHistory ||
+    createMemoryHistory({
+      initialEntries: [initialPath],
+    });
 
   if (onNavigate) {
     history.listen(onNavigate);
   }
 
-  ReactDOM.render(<App history={history} />, el);
+  ReactDOM.render(<App history={history} onSignIn={onSignIn} />, el);
 
   return {
     onParentNavigate({ pathname: nextPathname }) {

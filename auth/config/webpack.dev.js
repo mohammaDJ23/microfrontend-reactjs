@@ -7,6 +7,10 @@ const packageJson = require('../package.json');
 const devConfig = {
   mode: 'development',
   output: {
+    // to put the main.js file into this html project even you are running multiple project (because of routing)
+    // means if the route of your page is "/" it does not need it by if for instance are using "/auth/signin" you have to use it
+    // to put you script into "http://localhost:8082/main.js" not "http://localhost:8082/auth/main.js"
+
     publicPath: 'http://localhost:8082/',
   },
   devServer: {
