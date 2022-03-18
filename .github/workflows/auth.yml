@@ -1,0 +1,63 @@
+# the name of this workflow
+
+name: deploy-auth
+
+# run this file based on push event when you pushed any changes to master branch
+# and then run this file just for this path: 'packages/auth/**'
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'auth/**'
+
+# the execution path directory (should have access to package.json file to run commands)
+
+defaults:
+  run:
+    working-directory: auth
+
+# here's the commands to deploy our app when you pushed your codes to github
+
+jobs:
+  # the job is the build action (build version of your app)
+
+  build:
+    # choose the virtual machine
+
+    runs-on: ubuntu-latest
+
+    # steps of your jobs
+
+    steps:
+      # make a copy of your code from github in the virtual machine then install packages and
+      # make a build version
+
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run build
+
+      # deploy build version of your project into AWS
+
+      # get access to aws cli
+
+      - uses: chrislennon/action-aws-cli@v1.1
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
+      # use the cli to run further commands
+
+      # store files (sync your build version in dist folder of your app) in the s3 bucket
+
+      - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/auth/latest
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      # also update cloudfront to get new version of your app. it called invalidation in aws (to get more information about it see read.me file)
+
+      - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/auth/latest/remoteEntry.js"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
