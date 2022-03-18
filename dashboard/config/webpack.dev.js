@@ -1,4 +1,5 @@
 const { merge } = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
@@ -7,27 +8,32 @@ const devConfig = {
   mode: 'development',
   output: {
     // to put the main.js file into this html project even you are running multiple project (because of routing)
-    // means if the route of your page is "/" it does not need it by if for instance are using "/container/filter" you have to use it
-    // to put you script into "http://localhost:8080/main.js" not "http://localhost:8080/container/main.js"
+    // means if the route of your page is "/" it does not need it by if for instance are using "/dashboard/signin" you have to use it
+    // to put you script into "http://localhost:8083/main.js" not "http://localhost:8083/dashboard/main.js"
 
-    publicPath: 'http://localhost:8080/',
+    publicPath: 'http://localhost:8083/',
   },
   devServer: {
-    port: 8080,
+    port: 8083,
     historyApiFallback: {
       index: 'index.html',
+    },
+    headers: {
+      'Access-Control-Allow-Origin': '*',
     },
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'container',
-      remotes: {
-        marketing: 'marketing@http://localhost:8081/remoteEntry.js',
-        auth: 'auth@http://localhost:8082/remoteEntry.js',
-        dashboard: 'dashboard@http://localhost:8083/remoteEntry.js',
+      name: 'dashboard',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './DashboardApp': './src/bootstrap',
       },
       // shared: ['react', 'react-dom'],
       shared: packageJson.dependencies,
+    }),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
     }),
   ],
 };
